@@ -3,25 +3,22 @@ package zufallsgenerator.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @Entity
-public class Person {
+public class Meal {
     @Id
     @GeneratedValue
     private Long id;
     @Column(nullable = false)
-    private String name;
+    private String designation;
     @Column(nullable = true)
-    private String task;
+    private BigDecimal cost;
     @ManyToOne
-    @JoinColumn(name = "datesetting_id")
+    @JoinColumn(name = "datasetting_id")
     private DateSetting dateSetting;
     @ManyToOne
     @JoinColumn(name = "remarks_id")
     private Remarks remarks;
-    @OneToMany
-    @JoinColumn(name = "team_id")
-    private Team team;
-
-
 }

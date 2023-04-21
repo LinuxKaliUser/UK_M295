@@ -8,10 +8,10 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Mahlzeit {
+public class DateSetting {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(nullable = false)
-    private String bezeichnung;
+    @Column(nullable = true)
+    private String dateTimeNonFormatted;
 }

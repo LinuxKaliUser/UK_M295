@@ -2,9 +2,8 @@ package zufallsgenerator.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import zufallsgenerator.model.Mahlzeit;
-import zufallsgenerator.model.Person;
+import zufallsgenerator.model.Task;
 
 @Repository
-public interface IMahlzeitRepo extends JpaRepository<Mahlzeit, Long> {
+public interface TaskRepo extends JpaRepository<Task, Long> {
 }
