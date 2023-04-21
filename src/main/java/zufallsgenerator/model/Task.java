@@ -3,25 +3,23 @@ package zufallsgenerator.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Time;
+
 @Data
 @Entity
-public class Person {
+public class Task {
     @Id
     @GeneratedValue
     private Long id;
     @Column(nullable = false)
-    private String name;
+    private String designation;
     @Column(nullable = true)
-    private String task;
-    @ManyToOne
+    private Time taskduration;
+    @ManyToOne()
     @JoinColumn(name = "datesetting_id")
     private DateSetting dateSetting;
     @ManyToOne
     @JoinColumn(name = "remarks_id")
     private Remarks remarks;
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private Team team;
-
 
 }

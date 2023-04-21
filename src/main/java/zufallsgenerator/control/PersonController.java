@@ -1,55 +1,65 @@
 package zufallsgenerator.control;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.annotation.security.RolesAllowed;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import zufallsgenerator.model.Meal;
 import zufallsgenerator.model.Person;
-import zufallsgenerator.repo.IPersonRepo;
+import zufallsgenerator.model.Person;
+import zufallsgenerator.security.Roles;
+import zufallsgenerator.service.PersonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 public class PersonController {
-    private final IPersonRepo personRepo;
+    private final PersonService personService;
 
-    public  PersonController(IPersonRepo personRepo){
-        this.personRepo = personRepo;
+    public  PersonController(PersonService personService){
+        this.personService = personService;
     }
-    @PostMapping("/SavePerson")
-    public String savePerson(@RequestBody Person person){
-        personRepo.save(person);
-        return "%s saved!".formatted(person.getName());
+    @GetMapping("/Person/{id}")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<Person> getPersonById(@PathVariable Long id){
+        Person personById = personService.getPersonById(id);
+        return new ResponseEntity<>(personById, HttpStatus.OK);
     }
-    @PostMapping("/SavePersonen")
-    public String savePersonen(@RequestBody List<Person> persons){
-        try {
-            personRepo.saveAll(persons);
-            return "Saved all Person!";
-        } catch (Exception e) {
-            return e.toString();
-        }
-    }
-    @GetMapping("/GetPersonById/{id}")
-    //@RolesAllowed(Roles.Read)
-    public String getPersonById(@PathVariable Long id){
-        Person person = personRepo.findById(id).get();
-        return person.getName();
-    }
-    @GetMapping("/GetPersonen")
-    //@RolesAllowed(Roles.Read)
-    public String getPersonById(){
-        List<Person> personen = personRepo.findAll();
-        StringBuilder result = new StringBuilder();
-        for (Person person : personen) {
-            result.append(person.getName());
-            result.append(", ");
-        }
-        return result.toString();
+    @GetMapping("/Person")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<List<Person>> getPersonById(){
+        List<Person> allPersons = personService.getAllPersons();
+        return new ResponseEntity<>(allPersons, HttpStatus.OK) ;
     }
 
     @GetMapping("/TestPerson")
     public String getPersonName(){
-        Person p1 = new Person();
-        p1.setName("Testg");
-        savePerson(p1);
-        return p1.getName();
+        return personService.getTestPersonName();
     }
+    @PutMapping("/Person/{id}")
+    public ResponseEntity<Person> updatePerson(@RequestBody Person person, @PathVariable Long id){
+        Person updatedPerson=personService.updatePerson(person,id);
+        return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
+    }
+    @PostMapping("/Person")
+    public ResponseEntity<Person> savePerson(@RequestBody Person person){
+        Person savedPerson = personService.savePerson(person);
+        return new ResponseEntity<>(savedPerson, HttpStatus.OK);
+    }
+    @PostMapping("/Persons")
+    public ResponseEntity<List<Person>> savePersons(@RequestBody List<Person> people){
+        List<Person> savedAllPersons = personService.saveAllPersons(people);
+        return new ResponseEntity<>(savedAllPersons, HttpStatus.OK);
+    }
+    @DeleteMapping("/Person/{id}")
+    public  String deletePerson(@PathVariable Long id){
+        return  personService.deletePerson(id);
+    }
+    @DeleteMapping("/Person")
+    public  String deleteAllPersons(@RequestBody List<Person> people){
+        return  personService.deleteAllPersons(people);
+    }
+    
 }
