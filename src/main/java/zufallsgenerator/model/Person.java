@@ -19,7 +19,7 @@ public class Person {
     @ManyToOne
     @JoinColumn(name = "remarks_id")
     private Remarks remarks;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 

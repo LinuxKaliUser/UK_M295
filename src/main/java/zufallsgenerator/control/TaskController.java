@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zufallsgenerator.model.Task;
 import zufallsgenerator.model.Task;
+import zufallsgenerator.model.Task;
 import zufallsgenerator.service.TaskService;
 
 import java.util.List;
@@ -20,13 +21,15 @@ public class TaskController {
     }
     @GetMapping("/Task/{id}")
     //@RolesAllowed(Roles.Read)
-    public String getTaskById(@PathVariable Long id){
-        return taskService.getTaskById(id);
+    public ResponseEntity<Task> getTaskById(@PathVariable Long id){
+        Task taskById = taskService.getTaskById(id);
+        return new ResponseEntity<>(taskById, HttpStatus.OK);
     }
     @GetMapping("/Task")
     //@RolesAllowed(Roles.Read)
-    public String getTaskById(){
-        return taskService.getAllTasks();
+    public ResponseEntity<List<Task>> getTaskById(){
+        List<Task> allTasks = taskService.getAllTasks();
+        return new ResponseEntity<>(allTasks, HttpStatus.OK);
     }
 
     @GetMapping("/TestTask")
@@ -41,12 +44,14 @@ public class TaskController {
     }
     
     @PostMapping("/Task")
-    public String saveTask(@RequestBody Task task){
-        return taskService.saveTask(task);
+    public ResponseEntity<Task> saveTask(@RequestBody Task task){
+        Task savedTask = taskService.saveTask(task);
+        return new ResponseEntity<>(savedTask, HttpStatus.OK);
     }
-    @PostMapping("/Task")
-    public String saveTasks(@RequestBody List<Task> tasks){
-        return  taskService.saveAllTasks(tasks);
+    @PostMapping("/Tasks")
+    public ResponseEntity<List<Task>> saveTasks(@RequestBody List<Task> tasks){
+        List<Task> savedAllTasks = taskService.saveAllTasks(tasks);
+        return new ResponseEntity<>(savedAllTasks, HttpStatus.OK);
     }
    
     @DeleteMapping("/Task/{id}")

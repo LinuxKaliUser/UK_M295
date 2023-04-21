@@ -14,32 +14,19 @@ public class PersonService {
     public  PersonService(PersonRepo personRepo){
         this.personRepo = personRepo;
     }
-    public String saveAllPersons(List<Person> People) {
-        try {
-            personRepo.saveAll(People);
-            return "Saved all Person!";
-        } catch (Exception e) {
-            return e.toString();
-        }
+    public List<Person> saveAllPersons(List<Person> People) {
+        return personRepo.saveAll(People);
     }
 
 
-    public String savePerson( Person Person){
-        personRepo.save(Person);
-        return "%s saved!".formatted(Person.getName());
+    public Person savePerson( Person Person){
+        return personRepo.save(Person);
     }
-    public String getPersonById( Long id){
-        Person Person = personRepo.findById(id).get();
-        return Person.getName();
+    public Person getPersonById( Long id){
+        return personRepo.findById(id).get();
     }
-    public String getAllPersons(){
-        List<Person> People = personRepo.findAll();
-        StringBuilder result = new StringBuilder();
-        for (Person person : People) {
-            result.append(person.getName());
-            result.append(", ");
-        }
-        return result.toString();
+    public List<Person> getAllPersons(){
+        return personRepo.findAll();
     }
     public String getTestPersonName(){
         Person Person = new Person();

@@ -14,30 +14,17 @@ public class TaskService {
     public TaskService(TaskRepo taskRepo){
         this.taskRepo = taskRepo;
     }
-    public String saveAllTasks(List<Task> tasks) {
-        try {
-            taskRepo.saveAll(tasks);
-            return "Saved allTätigkeit!";
-        } catch (Exception e) {
-            return e.toString();
-        }
+    public List<Task> saveAllTasks(List<Task> tasks) {
+        return taskRepo.saveAll(tasks);
     }
-    public String saveTask(Task Task){
-        taskRepo.save(Task);
-        return "%s saved!".formatted(Task.getDesignation());
+    public Task saveTask(Task Task){
+        return taskRepo.save(Task);
     }
-    public String getTaskById(Long id){
-       Task Task = taskRepo.findById(id).get();
-        return Task.getDesignation();
+    public Task getTaskById(Long id){
+        return taskRepo.findById(id).get();
     }
-    public String getAllTasks(){
-        List<Task> tasks = taskRepo.findAll();
-        StringBuilder result = new StringBuilder();
-        for (Task task : tasks) {
-            result.append(task.getDesignation());
-            result.append(", ");
-        }
-        return result.toString();
+    public List<Task> getAllTasks(){
+        return taskRepo.findAll();
     }
     public String getTestTaskName(){
        Task Task = new Task();

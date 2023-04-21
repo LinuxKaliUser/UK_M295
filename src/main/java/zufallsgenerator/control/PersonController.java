@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import zufallsgenerator.model.Meal;
 import zufallsgenerator.model.Person;
 import zufallsgenerator.model.Person;
 import zufallsgenerator.security.Roles;
@@ -22,13 +23,15 @@ public class PersonController {
     }
     @GetMapping("/Person/{id}")
     @RolesAllowed(Roles.Read)
-    public String getPersonById(@PathVariable Long id){
-        return personService.getPersonById(id);
+    public ResponseEntity<Person> getPersonById(@PathVariable Long id){
+        Person personById = personService.getPersonById(id);
+        return new ResponseEntity<>(personById, HttpStatus.OK);
     }
     @GetMapping("/Person")
     @RolesAllowed(Roles.Read)
-    public String getPersonById(){
-        return personService.getAllPersons();
+    public ResponseEntity<List<Person>> getPersonById(){
+        List<Person> allPersons = personService.getAllPersons();
+        return new ResponseEntity<>(allPersons, HttpStatus.OK) ;
     }
 
     @GetMapping("/TestPerson")
@@ -41,12 +44,14 @@ public class PersonController {
         return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
     }
     @PostMapping("/Person")
-    public String savePerson(@RequestBody Person person){
-        return personService.savePerson(person);
+    public ResponseEntity<Person> savePerson(@RequestBody Person person){
+        Person savedPerson = personService.savePerson(person);
+        return new ResponseEntity<>(savedPerson, HttpStatus.OK);
     }
-    @PostMapping("/Person")
-    public String savePersonen(@RequestBody List<Person> people){
-        return  personService.saveAllPersons(people);
+    @PostMapping("/Persons")
+    public ResponseEntity<List<Person>> savePersons(@RequestBody List<Person> people){
+        List<Person> savedAllPersons = personService.saveAllPersons(people);
+        return new ResponseEntity<>(savedAllPersons, HttpStatus.OK);
     }
     @DeleteMapping("/Person/{id}")
     public  String deletePerson(@PathVariable Long id){

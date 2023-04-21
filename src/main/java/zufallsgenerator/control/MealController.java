@@ -28,7 +28,7 @@ public class MealController {
 
     @GetMapping("/Meal")
     //@RolesAllowed(Roles.Read)
-    public ResponseEntity<List<Meal>> getMealById() {
+        public ResponseEntity<List<Meal>> getMealById() {
         List<Meal> allMeals = this.mealService.getAllMeals();
         return new ResponseEntity<>(allMeals, HttpStatus.OK) ;
     }
@@ -45,15 +45,15 @@ public class MealController {
     }
 
     @PostMapping("/Meal")
-    public ResponseEntity<List<Meal>> saveMeals(@RequestBody List<Meal> meals) {
-        List<Meal> savedAllMeals = this.mealService.saveAllMeals(meals);
-        return new ResponseEntity<>(savedAllMeals, HttpStatus.OK);
-    }
-
-    @PostMapping("/Meal")
     public ResponseEntity<Meal> saveMeal(@RequestBody Meal meal) {
         Meal saveMeal = this.mealService.saveMeal(meal);
         return new ResponseEntity<>(saveMeal, HttpStatus.OK);
+    }
+
+    @PostMapping("/Meals")
+    public ResponseEntity<List<Meal>> saveMeals(@RequestBody List<Meal> meals) {
+        List<Meal> savedAllMeals = this.mealService.saveAllMeals(meals);
+        return new ResponseEntity<>(savedAllMeals, HttpStatus.OK);
     }
     @DeleteMapping("/Meal/{id}")
     public  String deleteMeal(@PathVariable Long id){

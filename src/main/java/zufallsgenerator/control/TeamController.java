@@ -1,7 +1,10 @@
 package zufallsgenerator.control;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import zufallsgenerator.model.Team;
 import zufallsgenerator.model.Team;
 import zufallsgenerator.service.TeamService;
 
@@ -18,41 +21,46 @@ public class TeamController {
 
     @GetMapping("/Team/{id}")
     //@RolesAllowed(Roles.Read)
-    public String getTeamById(@PathVariable Long id) {
-        return teamService.getTeamById(id);
+    public ResponseEntity<Team> getTeamById(@PathVariable Long id) {
+        Team TeamById =  this.teamService.getTeamById(id);
+        return new ResponseEntity<>(TeamById, HttpStatus.OK);
     }
 
     @GetMapping("/Team")
     //@RolesAllowed(Roles.Read)
-    public String getAllTeams() {
-
-        return teamService.getAllTeams();
+    public ResponseEntity<List<Team>> getTeamById() {
+        List<Team> allTeams = this.teamService.getAllTeams();
+        return new ResponseEntity<>(allTeams, HttpStatus.OK) ;
     }
 
     @GetMapping("/TestTeam")
-    public String getTestTeamName() {
-        return teamService.getTestTeamName();
+    public String getTeamName() {
+        return this.teamService.getTestTeamName();
     }
 
     @PutMapping("/Team/{id}")
-    public Team updateTeam(@RequestBody Team team,@PathVariable Long id){
-        return teamService.updateTeam(team,id);
-    }
-    @PostMapping("/Team")
-    public String saveTeam(@RequestBody Team team) {
-        return teamService.saveTeam(team);
+    public ResponseEntity<Team> updateTeam(@RequestBody Team Team, @PathVariable Long id){
+        Team updatedTeam=teamService.updateTeam(Team,id);
+        return new ResponseEntity<>(updatedTeam, HttpStatus.OK);
     }
 
     @PostMapping("/Team")
-    public String saveTeams(@RequestBody List<Team> teams) {
-        return teamService.saveAllTeams(teams);
+    public ResponseEntity<Team> saveTeam(@RequestBody Team Team) {
+        Team saveTeam = this.teamService.saveTeam(Team);
+        return new ResponseEntity<>(saveTeam, HttpStatus.OK);
+    }
+
+    @PostMapping("/Teams")
+    public ResponseEntity<List<Team>> saveTeams(@RequestBody List<Team> Teams) {
+        List<Team> savedAllTeams = this.teamService.saveAllTeams(Teams);
+        return new ResponseEntity<>(savedAllTeams, HttpStatus.OK);
     }
     @DeleteMapping("/Team/{id}")
     public  String deleteTeam(@PathVariable Long id){
         return  teamService.deleteTeam(id);
     }
     @DeleteMapping("/Team")
-    public  String deleteAllTeams(@RequestBody List<Team> teams){
-        return  teamService.deleteAllTeams(teams);
+    public  String deleteAllTeams(@RequestBody List<Team> Teams){
+        return  teamService.deleteAllTeams(Teams);
     }
 }

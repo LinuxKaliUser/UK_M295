@@ -13,30 +13,17 @@ public class TeamService {
     public TeamService(TeamRepo teamRepo){
         this.teamRepo = teamRepo;
     }
-    public String saveAllTeams(List<Team> teams) {
-        try {
-            teamRepo.saveAll(teams);
-            return "Saved all Teams!";
-        } catch (Exception e) {
-            return e.toString();
-        }
+    public List<Team> saveAllTeams(List<Team> teams) {
+        return teamRepo.saveAll(teams);
     }
-    public String saveTeam(Team team){
-        teamRepo.save(team);
-        return "%s saved!".formatted(team.getName());
+    public Team saveTeam(Team team){
+        return teamRepo.save(team);
     }
-    public String getTeamById(Long id){
-        Team team = teamRepo.findById(id).get();
-        return team.getName();
+    public Team getTeamById(Long id){
+        return teamRepo.findById(id).get();
     }
-    public String getAllTeams(){
-        List<Team> teamsses = teamRepo.findAll();
-        StringBuilder result = new StringBuilder();
-        for (Team Team : teamsses) {
-            result.append(Team.getName());
-            result.append(", ");
-        }
-        return result.toString();
+    public List<Team> getAllTeams(){
+        return teamRepo.findAll();
     }
     public String getTestTeamName(){
         Team team = new Team();
@@ -68,8 +55,6 @@ public class TeamService {
     }
 
     public String deleteAllTeams(List<Team> teams) {
-        List<Team> teamsResponse= teamRepo.findAll();
-//        StringBuilder result = new StringBuilder();
         try {
             teamRepo.deleteAll(teams);
             return "Delete";
