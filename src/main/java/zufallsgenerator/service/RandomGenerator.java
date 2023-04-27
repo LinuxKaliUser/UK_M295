@@ -22,7 +22,7 @@ public class RandomGenerator {
         for (int i = 1; i<= listSize; i++){
             int randomIndex = random.nextInt(list.size());
             Team element = list.remove(randomIndex);
-            element.setSequence(i);
+            element.setTotalMembers(i);
             resultTeams.add(element);
         }
         teamRepo.saveAll(resultTeams);
