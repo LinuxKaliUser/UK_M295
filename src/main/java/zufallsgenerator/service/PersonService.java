@@ -2,7 +2,6 @@ package zufallsgenerator.service;
 
 import org.springframework.stereotype.Service;
 import zufallsgenerator.model.Person;
-import zufallsgenerator.model.Person;
 import zufallsgenerator.repo.PersonRepo;
 
 import java.util.List;
@@ -22,11 +21,13 @@ public class PersonService {
     public Person savePerson( Person Person){
         return personRepo.save(Person);
     }
-    public Person getPersonById( Long id){
-        return personRepo.findById(id).get();
+    public Person getPerson(){
+        List<Person> persons = personRepo.findAll();
+        return RandomGenerator.getRandomPersonList(persons, true).get(1);
     }
     public List<Person> getAllPersons(){
-        return personRepo.findAll();
+        List<Person> persons = personRepo.findAll();
+        return RandomGenerator.getRandomPersonList(persons, false);
     }
     public String getTestPersonName(){
         Person Person = new Person();

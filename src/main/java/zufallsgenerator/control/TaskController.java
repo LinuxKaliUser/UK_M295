@@ -6,8 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zufallsgenerator.model.Task;
-import zufallsgenerator.model.Task;
-import zufallsgenerator.model.Task;
 import zufallsgenerator.security.Roles;
 import zufallsgenerator.service.TaskService;
 
@@ -21,15 +19,14 @@ public class TaskController {
     public TaskController(TaskService taskService){
         this.taskService = taskService;
     }
-    @GetMapping("/task/{id}")
-    @RolesAllowed(Roles.Read)
-    public ResponseEntity<Task> getTaskById(@PathVariable Long id){
-        Task taskById = taskService.getTaskById(id);
-        return new ResponseEntity<>(taskById, HttpStatus.OK);
-    }
     @GetMapping("/task")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<List<Task>> getTaskById(){
+    public ResponseEntity<Task> getTask(@PathVariable Long id){
+        return new ResponseEntity<>(taskService.getTask(), HttpStatus.OK);
+    }
+    @GetMapping("/tasks")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<List<Task>> getAllTasks(){
         List<Task> allTasks = taskService.getAllTasks();
         return new ResponseEntity<>(allTasks, HttpStatus.OK);
     }

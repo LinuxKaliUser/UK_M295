@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import zufallsgenerator.model.Meal;
-import zufallsgenerator.model.Meal;
 import zufallsgenerator.security.Roles;
 import zufallsgenerator.service.MealService;
 
@@ -21,16 +20,15 @@ public class MealController {
         this.mealService = mealService;
     }
 
-    @GetMapping("/meal/{id}")
-    @RolesAllowed(Roles.Read)
-    public ResponseEntity<Meal> getMealById(@PathVariable Long id) {
-        Meal mealById =  this.mealService.getMealById(id);
-        return new ResponseEntity<>(mealById, HttpStatus.OK);
-    }
-
     @GetMapping("/meal")
     @RolesAllowed(Roles.Read)
-        public ResponseEntity<List<Meal>> getMealById() {
+    public ResponseEntity<Meal> getMeal(@PathVariable Long id) {
+        return new ResponseEntity<>(this.mealService.getMeal(), HttpStatus.OK);
+    }
+
+    @GetMapping("/meals")
+    @RolesAllowed(Roles.Read)
+        public ResponseEntity<List<Meal>> getAllMeals() {
         List<Meal> allMeals = this.mealService.getAllMeals();
         return new ResponseEntity<>(allMeals, HttpStatus.OK) ;
     }

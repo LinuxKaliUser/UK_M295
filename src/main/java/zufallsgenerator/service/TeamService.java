@@ -19,12 +19,17 @@ public class TeamService {
     public Team saveTeam(Team team){
         return teamRepo.save(team);
     }
-    public Team getTeamById(Long id){
-        return teamRepo.findById(id).get();
+    public Team getTeam(){
+        List<Team> teams = teamRepo.findAll();
+        return RandomGenerator.getRandomTeamList(teams,true).get(1);
     }
     public List<Team> getAllTeams(){
-        return teamRepo.findAll();
+        List<Team> teams = teamRepo.findAll();
+        return RandomGenerator.getRandomTeamList(teams,false);
     }
+
+
+
     public String getTestTeamName(){
         Team team = new Team();
         team.setName("TestTeams");

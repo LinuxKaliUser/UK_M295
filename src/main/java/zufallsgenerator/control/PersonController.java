@@ -4,8 +4,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import zufallsgenerator.model.Meal;
-import zufallsgenerator.model.Person;
 import zufallsgenerator.model.Person;
 import zufallsgenerator.security.Roles;
 import zufallsgenerator.service.PersonService;
@@ -21,15 +19,14 @@ public class PersonController {
     public  PersonController(PersonService personService){
         this.personService = personService;
     }
-    @GetMapping("/person/{id}")
-    @RolesAllowed(Roles.Read)
-    public ResponseEntity<Person> getPersonById(@PathVariable Long id){
-        Person personById = personService.getPersonById(id);
-        return new ResponseEntity<>(personById, HttpStatus.OK);
-    }
     @GetMapping("/person")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<List<Person>> getPersonById(){
+    public ResponseEntity<Person> getPerson(@PathVariable Long id){
+        return new ResponseEntity<>(personService.getPerson(), HttpStatus.OK);
+    }
+    @GetMapping("/persons")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<List<Person>> getAllPersons(){
         List<Person> allPersons = personService.getAllPersons();
         return new ResponseEntity<>(allPersons, HttpStatus.OK) ;
     }
