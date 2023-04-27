@@ -9,9 +9,11 @@ import java.util.List;
 @Service
 public class PersonService {
     private final PersonRepo personRepo;
+    private final RandomGenerator randomGenerator;
 
-    public  PersonService(PersonRepo personRepo){
+    public  PersonService(PersonRepo personRepo, RandomGenerator randomGenerator){
         this.personRepo = personRepo;
+        this.randomGenerator = randomGenerator;
     }
     public List<Person> saveAllPersons(List<Person> People) {
         return personRepo.saveAll(People);
@@ -23,11 +25,11 @@ public class PersonService {
     }
     public Person getPerson(){
         List<Person> persons = personRepo.findAll();
-        return RandomGenerator.getRandomPersonList(persons, true).get(1);
+        return randomGenerator.getRandomPerson(persons, personRepo);
     }
     public List<Person> getAllPersons(){
         List<Person> persons = personRepo.findAll();
-        return RandomGenerator.getRandomPersonList(persons, false);
+        return randomGenerator.getRandomPersonList(persons, personRepo);
     }
     public String getTestPersonName(){
         Person Person = new Person();

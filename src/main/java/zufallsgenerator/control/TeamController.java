@@ -46,18 +46,18 @@ public class TeamController {
         Team updatedTeam=teamService.updateTeam(Team,id);
         return new ResponseEntity<>(updatedTeam, HttpStatus.OK);
     }
-
+    /*
     @PostMapping("/team")
     @RolesAllowed(Roles.Update)
     public ResponseEntity<Team> saveTeam(@RequestBody Team Team) {
         Team saveTeam = this.teamService.saveTeam(Team);
         return new ResponseEntity<>(saveTeam, HttpStatus.OK);
-    }
+    }*/
 
-    @PostMapping("/teams")
+    @PostMapping("/teams/{totalTeams}")
     @RolesAllowed(Roles.Update)
-    public ResponseEntity<List<Team>> saveTeams(@RequestBody List<Team> Teams) {
-        List<Team> savedAllTeams = this.teamService.saveAllTeams(Teams);
+    public ResponseEntity<List<Team>> saveTeams(@RequestBody List<Team> Teams, @PathVariable int totalTeams) {
+        List<Team> savedAllTeams = this.teamService.saveAllTeams(Teams, totalTeams);
         return new ResponseEntity<>(savedAllTeams, HttpStatus.OK);
     }
     @DeleteMapping("/team/{id}")

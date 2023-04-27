@@ -5,14 +5,15 @@ import zufallsgenerator.model.Task;
 import zufallsgenerator.repo.TaskRepo;
 
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class TaskService {
     private final TaskRepo taskRepo;
+    private final RandomGenerator randomGenerator;
 
-    public TaskService(TaskRepo taskRepo){
+    public TaskService(TaskRepo taskRepo, RandomGenerator randomGenerator){
         this.taskRepo = taskRepo;
+        this.randomGenerator = randomGenerator;
     }
     public List<Task> saveAllTasks(List<Task> tasks) {
         return taskRepo.saveAll(tasks);
@@ -22,11 +23,11 @@ public class TaskService {
     }
     public Task getTask(){
         List<Task> tasks = taskRepo.findAll();
-        return  RandomGenerator.getRandomTaskList(tasks, true).get(1);
+        return  randomGenerator.getRandomTask(tasks,taskRepo);
     }
     public List<Task> getAllTasks(){
         List<Task> tasks = taskRepo.findAll();
-        return  RandomGenerator.getRandomTaskList(tasks, false);
+        return  randomGenerator.getRandomTasksList(tasks, taskRepo);
     }
     public String getTestTaskName(){
        Task Task = new Task();

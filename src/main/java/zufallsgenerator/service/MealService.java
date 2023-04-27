@@ -9,9 +9,11 @@ import java.util.List;
 @Service
 public class MealService {
     private final MealRepo mealRepo;
+    private final RandomGenerator randomGenerator;
 
-    public MealService(MealRepo mealRepo){
+    public MealService(MealRepo mealRepo, RandomGenerator randomGenerator){
         this.mealRepo = mealRepo;
+        this.randomGenerator = randomGenerator;
     }
     public List<Meal> saveAllMeals(List<Meal> Meals) {
             return mealRepo.saveAll(Meals);
@@ -23,11 +25,11 @@ public class MealService {
     }
     public Meal getMeal(){
         List<Meal> meals = mealRepo.findAll();
-        return RandomGenerator.getRandomMealList(meals, true).get(1);
+        return randomGenerator.getRandomMeal(meals, mealRepo);
     }
     public List<Meal> getAllMeals(){
         List<Meal> meals = mealRepo.findAll();
-        return RandomGenerator.getRandomMealList(meals, false);
+        return randomGenerator.getRandomMealList(meals,mealRepo);
     }
     public String getTestMealDesignation(){
         Meal meal = new Meal();

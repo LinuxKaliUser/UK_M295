@@ -21,7 +21,7 @@ public class PersonController {
     }
     @GetMapping("/person")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<Person> getPerson(@PathVariable Long id){
+    public ResponseEntity<Person> getPerson(){
         return new ResponseEntity<>(personService.getPerson(), HttpStatus.OK);
     }
     @GetMapping("/persons")

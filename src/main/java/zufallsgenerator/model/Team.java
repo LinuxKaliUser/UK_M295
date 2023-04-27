@@ -3,6 +3,8 @@ package zufallsgenerator.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Team {
@@ -12,7 +14,10 @@ public class Team {
     @Column(nullable = false)
     private String name;
     @Column(nullable = true)
-    private Integer sequence;
+    private Integer totalMembers;
+    @OneToMany
+    @JoinColumn
+    private List<Person> persons;
     @ManyToOne
     @JoinColumn(name = "remarks_id")
     private Remarks remarks;
