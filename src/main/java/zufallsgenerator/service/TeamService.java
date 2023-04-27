@@ -1,6 +1,7 @@
 package zufallsgenerator.service;
 
 import org.springframework.stereotype.Service;
+import zufallsgenerator.model.Person;
 import zufallsgenerator.model.Team;
 import zufallsgenerator.repo.PersonRepo;
 import zufallsgenerator.repo.TeamRepo;
@@ -28,9 +29,13 @@ public class TeamService {
         List<Team> teams = teamRepo.findAll();
         return RandomGenerator.getRandomTeamList(teams,true).get(1);
     }*/
-    public List<Team> getAllTeams(){
+    public List<Team> getAllTeams(Integer totalTeams) {
         List<Team> teams = teamRepo.findAll();
-        return randomGenerator.getRandomTeamList(teams, teamRepo);
+        List<Person> persons = personRepo.findAll();
+        if (persons.size() % totalTeams == 0) {
+            return randomGenerator.getRandomTeamList(teams, teamRepo, persons, totalTeams);
+        }
+            return null;
     }
 
 

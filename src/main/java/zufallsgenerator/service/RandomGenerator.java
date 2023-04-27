@@ -11,19 +11,21 @@ import zufallsgenerator.repo.TaskRepo;
 import zufallsgenerator.repo.TeamRepo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 @Component
 public class RandomGenerator {
-    public  List<Team> getRandomTeamList(List<Team> list, TeamRepo teamRepo) {
+    public  List<Team> getRandomTeamList(List<Team> list, TeamRepo teamRepo, List<Person> persons, Integer totalTeams) {
         List<Team> resultTeams = new ArrayList<>();
-        Random random = new Random();
-        int listSize=list.size();
-        for (int i = 1; i<= listSize; i++){
-            int randomIndex = random.nextInt(list.size());
-            Team element = list.remove(randomIndex);
-            element.setTotalMembers(i);
-            resultTeams.add(element);
+        Collections.shuffle(persons);
+        for (Team team: list) {
+            List<Person> tempPersons= new ArrayList<>();
+            for (int i = 0; i< totalTeams; i++){
+                tempPersons.add(persons.get(i));
+            }
+            team.setPersons(tempPersons);
+            resultTeams.add(team);
         }
         teamRepo.saveAll(resultTeams);
         return resultTeams;
