@@ -14,6 +14,8 @@ public class Meal {
     @Column(nullable = false)
     private String designation;
     @Column(nullable = true)
+    private Integer sequence;
+    @Column(nullable = true)
     private BigDecimal cost;
     @ManyToOne
     @JoinColumn(name = "datasetting_id")

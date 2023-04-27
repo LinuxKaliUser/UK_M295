@@ -21,11 +21,13 @@ public class MealService {
     public Meal saveMeal(Meal meal){
         return  mealRepo.save(meal);
     }
-    public Meal getMealById(Long id){
-        return mealRepo.findById(id).get();
+    public Meal getMeal(){
+        List<Meal> meals = mealRepo.findAll();
+        return RandomGenerator.getRandomMealList(meals, true).get(1);
     }
     public List<Meal> getAllMeals(){
-        return  mealRepo.findAll();
+        List<Meal> meals = mealRepo.findAll();
+        return RandomGenerator.getRandomMealList(meals, false);
     }
     public String getTestMealDesignation(){
         Meal meal = new Meal();

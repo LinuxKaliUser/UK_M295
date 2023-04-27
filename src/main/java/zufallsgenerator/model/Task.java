@@ -14,6 +14,8 @@ public class Task {
     @Column(nullable = false)
     private String designation;
     @Column(nullable = true)
+    private Integer sequence;
+    @Column(nullable = true)
     private Time taskduration;
     @ManyToOne()
     @JoinColumn(name = "datesetting_id")

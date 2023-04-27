@@ -12,6 +12,8 @@ public class Person {
     @Column(nullable = false)
     private String name;
     @Column(nullable = true)
+    private Integer sequence;
+    @Column(nullable = true)
     private String task;
     @ManyToOne
     @JoinColumn(name = "datesetting_id")

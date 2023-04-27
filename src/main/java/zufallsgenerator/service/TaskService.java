@@ -2,10 +2,10 @@ package zufallsgenerator.service;
 
 import org.springframework.stereotype.Service;
 import zufallsgenerator.model.Task;
-import zufallsgenerator.model.Task;
 import zufallsgenerator.repo.TaskRepo;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class TaskService {
@@ -20,11 +20,13 @@ public class TaskService {
     public Task saveTask(Task Task){
         return taskRepo.save(Task);
     }
-    public Task getTaskById(Long id){
-        return taskRepo.findById(id).get();
+    public Task getTask(){
+        List<Task> tasks = taskRepo.findAll();
+        return  RandomGenerator.getRandomTaskList(tasks, true).get(1);
     }
     public List<Task> getAllTasks(){
-        return taskRepo.findAll();
+        List<Task> tasks = taskRepo.findAll();
+        return  RandomGenerator.getRandomTaskList(tasks, false);
     }
     public String getTestTaskName(){
        Task Task = new Task();
