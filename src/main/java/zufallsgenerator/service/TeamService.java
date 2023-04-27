@@ -9,9 +9,11 @@ import java.util.List;
 @Service
 public class TeamService {
     private final TeamRepo teamRepo;
+    private final RandomGenerator randomGenerator;
 
-    public TeamService(TeamRepo teamRepo){
+    public TeamService(TeamRepo teamRepo, RandomGenerator randomGenerator){
         this.teamRepo = teamRepo;
+        this.randomGenerator = randomGenerator;
     }
     public List<Team> saveAllTeams(List<Team> teams) {
         return teamRepo.saveAll(teams);
@@ -19,13 +21,13 @@ public class TeamService {
     public Team saveTeam(Team team){
         return teamRepo.save(team);
     }
-    public Team getTeam(){
+    /*public Team getTeam(){
         List<Team> teams = teamRepo.findAll();
         return RandomGenerator.getRandomTeamList(teams,true).get(1);
-    }
+    }*/
     public List<Team> getAllTeams(){
         List<Team> teams = teamRepo.findAll();
-        return RandomGenerator.getRandomTeamList(teams,false);
+        return randomGenerator.getRandomTeamList(teams, teamRepo);
     }
 
 
