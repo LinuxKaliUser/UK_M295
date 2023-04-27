@@ -35,29 +35,35 @@ public class PersonController {
     }
 
     @GetMapping("/TestPerson")
+    @RolesAllowed(Roles.Read)
     public String getPersonName(){
         return personService.getTestPersonName();
     }
     @PutMapping("/Person/{id}")
+    @RolesAllowed(Roles.Update)
     public ResponseEntity<Person> updatePerson(@RequestBody Person person, @PathVariable Long id){
         Person updatedPerson=personService.updatePerson(person,id);
         return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
     }
     @PostMapping("/Person")
+    @RolesAllowed(Roles.Update)
     public ResponseEntity<Person> savePerson(@RequestBody Person person){
         Person savedPerson = personService.savePerson(person);
         return new ResponseEntity<>(savedPerson, HttpStatus.OK);
     }
     @PostMapping("/Persons")
+    @RolesAllowed(Roles.Update)
     public ResponseEntity<List<Person>> savePersons(@RequestBody List<Person> people){
         List<Person> savedAllPersons = personService.saveAllPersons(people);
         return new ResponseEntity<>(savedAllPersons, HttpStatus.OK);
     }
     @DeleteMapping("/Person/{id}")
+    @RolesAllowed(Roles.Admin)
     public  String deletePerson(@PathVariable Long id){
         return  personService.deletePerson(id);
     }
     @DeleteMapping("/Person")
+    @RolesAllowed(Roles.Admin)
     public  String deleteAllPersons(@RequestBody List<Person> people){
         return  personService.deleteAllPersons(people);
     }
