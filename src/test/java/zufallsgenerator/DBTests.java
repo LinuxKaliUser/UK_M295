@@ -1,5 +1,6 @@
 package zufallsgenerator;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import zufallsgenerator.model.Person;
 import zufallsgenerator.model.Remarks;
 import zufallsgenerator.model.Team;
 import zufallsgenerator.repo.PersonRepo;
+
+import java.util.List;
 
 @DataJpaTest()
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -38,11 +41,93 @@ public class DBTests {
 
         personTest1.setDateSetting(dateSetting);
         personTest1.setRemarks(remarks);
-        personTest1.setTeam(team);
+        //personTest1.setTeam(team);
 
         Person personTest=this.personRepo.save(personTest1);
         Assertions.assertNotNull(personTest.getId());
 
 
+    }
+    @Test
+    @Transactional
+    public void testSavePerson() {
+        // given
+        Person person = new Person();
+        person.setName("Test Person");
+
+        // when
+        Person savedPerson = personRepo.save(person);
+
+        // then
+        Assertions.assertNotNull(savedPerson.getId());
+        Assertions.assertEquals(person.getName(), savedPerson.getName());
+    }
+
+    @Test
+    @Transactional
+    public void testGetPersonById() {
+        // given
+        Person person = new Person();
+        person.setName("Test Person");
+        Person savedPerson = personRepo.save(person);
+
+        // when
+        Person retrievedPerson = personRepo.findById(savedPerson.getId()).orElse(null);
+
+        // then
+        Assertions.assertNotNull(retrievedPerson);
+        Assertions.assertEquals(savedPerson.getId(), retrievedPerson.getId());
+        Assertions.assertEquals(savedPerson.getName(), retrievedPerson.getName());
+    }
+
+    @Test
+    @Transactional
+    public void testUpdatePerson() {
+        // given
+        Person person = new Person();
+        person.setName("Test Person");
+        Person savedPerson = personRepo.save(person);
+
+        // when
+        savedPerson.setName("Updated Person");
+        Person updatedPerson = personRepo.save(savedPerson);
+
+        // then
+        Assertions.assertEquals(savedPerson.getId(), updatedPerson.getId());
+        Assertions.assertEquals("Updated Person", updatedPerson.getName());
+    }
+
+    @Test
+    @Transactional
+    public void testDeletePerson() {
+        // given
+        Person person = new Person();
+        person.setName("Test Person");
+        Person savedPerson = personRepo.save(person);
+
+        // when
+        personRepo.deleteById(savedPerson.getId());
+
+        // then
+        Assertions.assertFalse(personRepo.findById(savedPerson.getId()).isPresent());
+    }
+
+    @Test
+    @Transactional
+    public void testGetAllPersons() {
+        // given
+        Person person1 = new Person();
+        person1.setName("Person 1");
+        personRepo.save(person1);
+
+        Person person2 = new Person();
+        person2.setName("Person 2");
+        personRepo.save(person2);
+
+        // when
+        List<Person> allPersons = personRepo.findAll();
+
+        // then
+        Assertions.assertEquals(2, allPersons.size());
     }
 }
