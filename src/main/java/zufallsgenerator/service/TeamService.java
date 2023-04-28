@@ -29,16 +29,14 @@ public class TeamService {
         List<Team> teams = teamRepo.findAll();
         return RandomGenerator.getRandomTeamList(teams,true).get(1);
     }*/
-    public List<Team> getAllTeams(Integer totalTeams) {
+    public List<Team> getAllTeams() {
         List<Team> teams = teamRepo.findAll();
         List<Person> persons = personRepo.findAll();
-        if (persons.size() % totalTeams == 0) {
-            return randomGenerator.getRandomTeamList(teams, teamRepo, persons, totalTeams);
+        if (persons.size() % teams.size() == 0) {
+            return randomGenerator.getRandomTeamList(teams, teamRepo, persons);
         }
             return null;
     }
-
-
 
     public String getTestTeamName(){
         Team team = new Team();

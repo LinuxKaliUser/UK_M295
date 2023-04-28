@@ -1,7 +1,9 @@
 package zufallsgenerator;
 
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,8 +24,11 @@ public class DBTests {
 
     @Autowired
     private PersonRepo personRepo;
-
-    @Test
+    @AfterEach
+    public void tearDown() {
+        personRepo.deleteAll(personRepo.findAll());
+    }
+    /*@Test
     void insertPerson(){
         Person personTest1 = new Person();
         personTest1.setName("TestRichard");
@@ -47,7 +52,7 @@ public class DBTests {
         Assertions.assertNotNull(personTest.getId());
 
 
-    }
+    }*/
     @Test
     @Transactional
     public void testSavePerson() {

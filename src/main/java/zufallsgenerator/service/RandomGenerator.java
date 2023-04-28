@@ -16,15 +16,19 @@ import java.util.List;
 import java.util.Random;
 @Component
 public class RandomGenerator {
-    public  List<Team> getRandomTeamList(List<Team> list, TeamRepo teamRepo, List<Person> persons, Integer totalTeams) {
+    public  List<Team> getRandomTeamList(List<Team> list, TeamRepo teamRepo, List<Person> persons) {
         List<Team> resultTeams = new ArrayList<>();
         Collections.shuffle(persons);
+
+        int totalMemberTeam= persons.size()/list.size();
         for (Team team: list) {
             List<Person> tempPersons= new ArrayList<>();
-            for (int i = 0; i< totalTeams; i++){
+            for (int i = 0; i< totalMemberTeam; i++){
                 tempPersons.add(persons.get(i));
             }
             team.setPersons(tempPersons);
+            persons.removeAll(tempPersons);
+            team.setTotalMembers(totalMemberTeam);
             resultTeams.add(team);
         }
         teamRepo.saveAll(resultTeams);

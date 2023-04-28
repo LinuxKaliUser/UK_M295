@@ -27,10 +27,10 @@ public class TeamController {
         return new ResponseEntity<>(TeamById, HttpStatus.OK);
     }*/
 
-    @GetMapping("/teams/{totalTeams}")
+    @GetMapping("/teams")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<List<Team>> getAllTeams(@PathVariable Integer totalTeams) {
-        List<Team> allTeams = this.teamService.getAllTeams(totalTeams);
+    public ResponseEntity<List<Team>> getAllTeams() {
+        List<Team> allTeams = this.teamService.getAllTeams();
         return new ResponseEntity<>(allTeams, HttpStatus.OK) ;
     }
 
