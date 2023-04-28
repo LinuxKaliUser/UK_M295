@@ -20,6 +20,7 @@ public class DBTests {
 
     @Autowired
     private PersonRepo personRepo;
+
     @AfterEach
     public void tearDown() {
         personRepo.deleteAll(personRepo.findAll());

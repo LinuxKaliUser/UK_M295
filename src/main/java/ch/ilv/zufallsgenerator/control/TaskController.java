@@ -16,55 +16,59 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
 
-    public TaskController(TaskService taskService){
+    public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
+
     @GetMapping("/task")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<Task> getTask(@PathVariable Long id){
+    public ResponseEntity<Task> getTask(@PathVariable Long id) {
         return new ResponseEntity<>(taskService.getTask(), HttpStatus.OK);
     }
+
     @GetMapping("/tasks")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<List<Task>> getAllTasks(){
+    public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> allTasks = taskService.getAllTasks();
         return new ResponseEntity<>(allTasks, HttpStatus.OK);
     }
 
     @GetMapping("/testtask")
     @RolesAllowed(Roles.Read)
-    public String getTaskName(){
+    public String getTaskName() {
         return taskService.getTestTaskName();
     }
 
     @PutMapping("/task/{id}")
     @RolesAllowed(Roles.Update)
-    public ResponseEntity<Task> updateTask(@RequestBody Task task, @PathVariable Long id){
-        Task updatedTask=taskService.updateTask(task,id);
+    public ResponseEntity<Task> updateTask(@RequestBody Task task, @PathVariable Long id) {
+        Task updatedTask = taskService.updateTask(task, id);
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
-    
+
     @PostMapping("/task")
     @RolesAllowed(Roles.Update)
-    public ResponseEntity<Task> saveTask(@RequestBody Task task){
+    public ResponseEntity<Task> saveTask(@RequestBody Task task) {
         Task savedTask = taskService.saveTask(task);
         return new ResponseEntity<>(savedTask, HttpStatus.OK);
     }
+
     @PostMapping("/tasks")
     @RolesAllowed(Roles.Update)
-    public ResponseEntity<List<Task>> saveTasks(@RequestBody List<Task> tasks){
+    public ResponseEntity<List<Task>> saveTasks(@RequestBody List<Task> tasks) {
         List<Task> savedAllTasks = taskService.saveAllTasks(tasks);
         return new ResponseEntity<>(savedAllTasks, HttpStatus.OK);
     }
-   
+
     @DeleteMapping("/task/{id}")
     @RolesAllowed(Roles.Admin)
-    public  String deleteTask(@PathVariable Long id){
-        return  taskService.deleteTask(id);
+    public String deleteTask(@PathVariable Long id) {
+        return taskService.deleteTask(id);
     }
+
     @DeleteMapping("/task")
     @RolesAllowed(Roles.Admin)
-    public  String deleteAllTasks(@RequestBody List<Task> tasks){
-        return  taskService.deleteAllTasks(tasks);
+    public String deleteAllTasks(@RequestBody List<Task> tasks) {
+        return taskService.deleteAllTasks(tasks);
     }
 }

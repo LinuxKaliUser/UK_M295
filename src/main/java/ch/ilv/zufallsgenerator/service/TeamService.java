@@ -14,17 +14,20 @@ public class TeamService {
     private final PersonRepo personRepo;
     private final RandomGenerator randomGenerator;
 
-    public TeamService(TeamRepo teamRepo, PersonRepo personRepo,RandomGenerator randomGenerator){
+    public TeamService(TeamRepo teamRepo, PersonRepo personRepo, RandomGenerator randomGenerator) {
         this.teamRepo = teamRepo;
-        this.personRepo=personRepo;
+        this.personRepo = personRepo;
         this.randomGenerator = randomGenerator;
     }
+
     public List<Team> saveAllTeams(List<Team> teams) {
         return teamRepo.saveAll(teams);
     }
-    public Team saveTeam(Team team){
+
+    public Team saveTeam(Team team) {
         return teamRepo.save(team);
     }
+
     /*public Team getTeam(){
         List<Team> teams = teamRepo.findAll();
         return RandomGenerator.getRandomTeamList(teams,true).get(1);
@@ -35,10 +38,10 @@ public class TeamService {
         if (persons.size() % teams.size() == 0) {
             return randomGenerator.getRandomTeamList(teams, teamRepo, persons);
         }
-            return null;
+        return null;
     }
 
-    public String getTestTeamName(){
+    public String getTestTeamName() {
         Team team = new Team();
         team.setName("TestTeams");
         saveTeam(team);
@@ -46,23 +49,23 @@ public class TeamService {
     }
 
     public Team updateTeam(Team team, Long id) {
-       return teamRepo.findById(id)
-               .map(teamOrig -> {
-                   teamOrig.setId(team.getId());
-                   teamOrig.setName(team.getName());
-                   teamOrig.setRemarks(team.getRemarks());
-                   return teamRepo.save(teamOrig);
-               })
-               .orElseGet(() -> teamRepo.save(team));
+        return teamRepo.findById(id)
+                .map(teamOrig -> {
+                    teamOrig.setId(team.getId());
+                    teamOrig.setName(team.getName());
+                    teamOrig.setRemarks(team.getRemarks());
+                    return teamRepo.save(teamOrig);
+                })
+                .orElseGet(() -> teamRepo.save(team));
     }
 
     public String deleteTeam(Long id) {
         Team team = teamRepo.findById(id).get();
         try {
             teamRepo.deleteById(id);
-            return "Deleted"+team.getName();
-        }catch(Throwable throwable) {
-            return "Didn't delete "+team.getName();
+            return "Deleted" + team.getName();
+        } catch (Throwable throwable) {
+            return "Didn't delete " + team.getName();
         }
 
     }
@@ -71,7 +74,7 @@ public class TeamService {
         try {
             teamRepo.deleteAll(teams);
             return "Delete";
-        }catch(Throwable throwable) {
+        } catch (Throwable throwable) {
             return "Didn't delete ";
         }
 

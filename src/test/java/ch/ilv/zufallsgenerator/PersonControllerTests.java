@@ -48,17 +48,13 @@ public class PersonControllerTests {
     @Autowired
     private PersonRepo personRepo;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @BeforeEach
     public void setUp() {
         List<Person> persons = new ArrayList<>();
         Person p1 = new Person();
         p1.setName("Alice");
-        //p1.setRemarks("remark1");
         Person p2 = new Person();
         p2.setName("Bob");
-        //p2.setRemarks("remark2");
         persons.add(p1);
         persons.add(p2);
         personRepo.saveAll(persons);
@@ -101,8 +97,7 @@ public class PersonControllerTests {
         Person newPerson = new Person();
         newPerson.setName("NewPerson");
 
-        //newPerson.setRemarks("NewRemark");
-        String json = objectMapper.writeValueAsString(newPerson);
+        String json = new ObjectMapper().writeValueAsString(newPerson);
         mockMvc.perform(post("/person")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
@@ -121,7 +116,7 @@ public class PersonControllerTests {
         person = personRepo.save(person);
 
         MvcResult mvcResult = mockMvc.perform(delete("/person/" + person.getId()).header("Authorization", "Bearer " + accessToken)
-                        .with(csrf())).andReturn();
+                .with(csrf())).andReturn();
 
         assertEquals("Deleted" + person.getName(), mvcResult.getResponse().getContentAsString());
         assertFalse(personRepo.findById(person.getId()).isPresent());

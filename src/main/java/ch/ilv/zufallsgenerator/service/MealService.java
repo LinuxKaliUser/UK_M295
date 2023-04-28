@@ -11,32 +11,38 @@ public class MealService {
     private final MealRepo mealRepo;
     private final RandomGenerator randomGenerator;
 
-    public MealService(MealRepo mealRepo, RandomGenerator randomGenerator){
+    public MealService(MealRepo mealRepo, RandomGenerator randomGenerator) {
         this.mealRepo = mealRepo;
         this.randomGenerator = randomGenerator;
     }
+
     public List<Meal> saveAllMeals(List<Meal> Meals) {
-            return mealRepo.saveAll(Meals);
+        return mealRepo.saveAll(Meals);
     }
 
 
-    public Meal saveMeal(Meal meal){
-        return  mealRepo.save(meal);
+    public Meal saveMeal(Meal meal) {
+        return mealRepo.save(meal);
     }
-    public Meal getMeal(){
+
+    public Meal getMeal() {
         List<Meal> meals = mealRepo.findAll();
         return randomGenerator.getRandomMeal(meals, mealRepo);
     }
-    public List<Meal> getAllMeals(){
+
+    public List<Meal> getAllMeals() {
         List<Meal> meals = mealRepo.findAll();
-        return randomGenerator.getRandomMealList(meals,mealRepo);
+        return randomGenerator.getRandomMealList(meals, mealRepo);
     }
-    public String getTestMealDesignation(){
+
+    public String getTestMealDesignation() {
         Meal meal = new Meal();
         meal.setDesignation("TestMahlzeit");
         saveMeal(meal);
         return meal.getDesignation();
-    }   public Meal updateMeal(Meal meal, Long id) {
+    }
+
+    public Meal updateMeal(Meal meal, Long id) {
         return mealRepo.findById(id)
                 .map(mealOrig -> {
                     mealOrig.setId(meal.getId());
@@ -47,9 +53,9 @@ public class MealService {
                 .orElseGet(() -> mealRepo.save(meal));
     }
 
-    public String  deleteMeal(Long id) {
+    public String deleteMeal(Long id) {
         mealRepo.deleteById(id);
-        return  new String("Meal " + id + " deleted");
+        return new String("Meal " + id + " deleted");
 
     }
 
@@ -57,10 +63,10 @@ public class MealService {
         try {
             mealRepo.deleteAll(Meals);
             return "Deleted all Meals";
-        }catch(Throwable throwable) {
-            return "Didn't delete all Meals" ;
+        } catch (Throwable throwable) {
+            return "Didn't delete all Meals";
         }
 
     }
-    
+
 }

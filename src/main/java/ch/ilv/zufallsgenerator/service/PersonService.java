@@ -11,32 +11,37 @@ public class PersonService {
     private final PersonRepo personRepo;
     private final RandomGenerator randomGenerator;
 
-    public  PersonService(PersonRepo personRepo, RandomGenerator randomGenerator){
+    public PersonService(PersonRepo personRepo, RandomGenerator randomGenerator) {
         this.personRepo = personRepo;
         this.randomGenerator = randomGenerator;
     }
-    public List<Person> saveAllPersons(List<Person> People) {
-        return personRepo.saveAll(People);
+
+    public List<Person> saveAllPersons(List<Person> persons) {
+        return personRepo.saveAll(persons);
     }
 
 
-    public Person savePerson( Person Person){
+    public Person savePerson(Person Person) {
         return personRepo.save(Person);
     }
-    public Person getPerson(){
+
+    public Person getPerson() {
         List<Person> persons = personRepo.findAll();
         return randomGenerator.getRandomPerson(persons, personRepo);
     }
-    public List<Person> getAllPersons(){
+
+    public List<Person> getAllPersons() {
         List<Person> persons = personRepo.findAll();
         return randomGenerator.getRandomPersonList(persons, personRepo);
     }
-    public String getTestPersonName(){
+
+    public String getTestPersonName() {
         Person Person = new Person();
         Person.setName("TestPerson");
         savePerson(Person);
         return Person.getName();
     }
+
     public Person updatePerson(Person person, Long id) {
         return personRepo.findById(id)
                 .map(personOrig -> {
@@ -52,9 +57,9 @@ public class PersonService {
         Person Person = personRepo.findById(id).get();
         try {
             personRepo.deleteById(id);
-            return "Deleted"+Person.getName();
-        }catch(Throwable throwable) {
-            return "Didn't delete "+Person.getName();
+            return "Deleted" + Person.getName();
+        } catch (Throwable throwable) {
+            return "Didn't delete " + Person.getName();
         }
 
     }
@@ -63,8 +68,8 @@ public class PersonService {
         try {
             personRepo.deleteAll(Persons);
             return "Deleted all Persons";
-        }catch(Throwable throwable) {
-            return "Didn't delete all Persons" ;
+        } catch (Throwable throwable) {
+            return "Didn't delete all Persons";
         }
 
     }

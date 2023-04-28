@@ -31,7 +31,7 @@ public class TeamController {
     @RolesAllowed(Roles.Read)
     public ResponseEntity<List<Team>> getAllTeams() {
         List<Team> allTeams = this.teamService.getAllTeams();
-        return new ResponseEntity<>(allTeams, HttpStatus.OK) ;
+        return new ResponseEntity<>(allTeams, HttpStatus.OK);
     }
 
     @GetMapping("/testteam")
@@ -42,8 +42,8 @@ public class TeamController {
 
     @PutMapping("/team/{id}")
     @RolesAllowed(Roles.Update)
-    public ResponseEntity<Team> updateTeam(@RequestBody Team Team, @PathVariable Long id){
-        Team updatedTeam=teamService.updateTeam(Team,id);
+    public ResponseEntity<Team> updateTeam(@RequestBody Team Team, @PathVariable Long id) {
+        Team updatedTeam = teamService.updateTeam(Team, id);
         return new ResponseEntity<>(updatedTeam, HttpStatus.OK);
     }
 
@@ -60,14 +60,16 @@ public class TeamController {
         List<Team> savedAllTeams = this.teamService.saveAllTeams(teams);
         return new ResponseEntity<>(savedAllTeams, HttpStatus.OK);
     }
+
     @DeleteMapping("/team/{id}")
     @RolesAllowed(Roles.Admin)
-    public  String deleteTeam(@PathVariable Long id){
-        return  teamService.deleteTeam(id);
+    public String deleteTeam(@PathVariable Long id) {
+        return teamService.deleteTeam(id);
     }
+
     @DeleteMapping("/team")
     @RolesAllowed(Roles.Admin)
-    public  String deleteAllTeams(@RequestBody List<Team> Teams){
-        return  teamService.deleteAllTeams(Teams);
+    public String deleteAllTeams(@RequestBody List<Team> Teams) {
+        return teamService.deleteAllTeams(Teams);
     }
 }

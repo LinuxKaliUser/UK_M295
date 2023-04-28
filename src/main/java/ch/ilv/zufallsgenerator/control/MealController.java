@@ -28,9 +28,9 @@ public class MealController {
 
     @GetMapping("/meals")
     @RolesAllowed(Roles.Read)
-        public ResponseEntity<List<Meal>> getAllMeals() {
+    public ResponseEntity<List<Meal>> getAllMeals() {
         List<Meal> allMeals = this.mealService.getAllMeals();
-        return new ResponseEntity<>(allMeals, HttpStatus.OK) ;
+        return new ResponseEntity<>(allMeals, HttpStatus.OK);
     }
 
     @GetMapping("/testmeal")
@@ -41,8 +41,8 @@ public class MealController {
 
     @PutMapping("/meal/{id}")
     @RolesAllowed(Roles.Update)
-    public ResponseEntity<Meal> updateMeal(@RequestBody Meal meal, @PathVariable Long id){
-        Meal updatedMeal=mealService.updateMeal(meal,id);
+    public ResponseEntity<Meal> updateMeal(@RequestBody Meal meal, @PathVariable Long id) {
+        Meal updatedMeal = mealService.updateMeal(meal, id);
         return new ResponseEntity<>(updatedMeal, HttpStatus.OK);
     }
 
@@ -59,14 +59,16 @@ public class MealController {
         List<Meal> savedAllMeals = this.mealService.saveAllMeals(meals);
         return new ResponseEntity<>(savedAllMeals, HttpStatus.OK);
     }
+
     @DeleteMapping("/meal/{id}")
     @RolesAllowed(Roles.Admin)
-    public  String deleteMeal(@PathVariable Long id){
-        return  mealService.deleteMeal(id);
+    public String deleteMeal(@PathVariable Long id) {
+        return mealService.deleteMeal(id);
     }
+
     @DeleteMapping("/meal")
     @RolesAllowed(Roles.Admin)
-    public  String deleteAllMeals(@RequestBody List<Meal> meals){
-        return  mealService.deleteAllMeals(meals);
+    public String deleteAllMeals(@RequestBody List<Meal> meals) {
+        return mealService.deleteAllMeals(meals);
     }
 }

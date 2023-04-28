@@ -10,11 +10,12 @@ public class HelloTestController {
     private String helloString;
 
     @GetMapping("/hello")
-    public String hello(){
+    public String hello() {
         return "Hello World!";
     }
+
     @GetMapping("/hello0/{name}")
-    public String hello0(@PathVariable("name") String name){
+    public String hello0(@PathVariable("name") String name) {
         return "Hello %s".formatted(name);
     }
 
