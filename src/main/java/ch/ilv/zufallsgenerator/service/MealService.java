@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.service;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import ch.ilv.zufallsgenerator.model.Meal;
 import ch.ilv.zufallsgenerator.repo.MealRepo;
 import org.springframework.stereotype.Service;
@@ -53,9 +54,9 @@ public class MealService {
                 .orElseGet(() -> mealRepo.save(meal));
     }
 
-    public String deleteMeal(Long id) {
+    public MessageResponse deleteMeal(Long id) {
         mealRepo.deleteById(id);
-        return new String("Meal " + id + " deleted");
+        return new MessageResponse("Meal " + id + " deleted");
 
     }
 

@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.service;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import org.springframework.stereotype.Service;
 import ch.ilv.zufallsgenerator.model.Person;
 import ch.ilv.zufallsgenerator.repo.PersonRepo;
@@ -53,14 +54,10 @@ public class PersonService {
                 .orElseGet(() -> personRepo.save(person));
     }
 
-    public String deletePerson(Long id) {
-        Person Person = personRepo.findById(id).get();
-        try {
-            personRepo.deleteById(id);
-            return "Deleted" + Person.getName();
-        } catch (Throwable throwable) {
-            return "Didn't delete " + Person.getName();
-        }
+    public MessageResponse deletePerson(Long id) {
+        personRepo.deleteById(id);
+        return new MessageResponse( "Person" + id+" deleted");
+
 
     }
 

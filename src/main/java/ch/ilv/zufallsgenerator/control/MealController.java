@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.control;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.HttpStatus;
@@ -62,8 +63,12 @@ public class MealController {
 
     @DeleteMapping("/meal/{id}")
     @RolesAllowed(Roles.Admin)
-    public String deleteMeal(@PathVariable Long id) {
-        return mealService.deleteMeal(id);
+    public ResponseEntity<MessageResponse> deleteMeal(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(mealService.deleteMeal(id));
+        } catch (Throwable t) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @DeleteMapping("/meal")

@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.service;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import ch.ilv.zufallsgenerator.model.Task;
 import ch.ilv.zufallsgenerator.repo.TaskRepo;
 import org.springframework.stereotype.Service;
@@ -52,14 +53,9 @@ public class TaskService {
                 .orElseGet(() -> taskRepo.save(task));
     }
 
-    public String deleteTask(Long id) {
-        Task Task = taskRepo.findById(id).get();
-        try {
-            taskRepo.deleteById(id);
-            return "Deleted" + Task.getDesignation();
-        } catch (Throwable throwable) {
-            return "Didn't delete " + Task.getDesignation();
-        }
+    public MessageResponse deleteTask(Long id) {
+        taskRepo.deleteById(id);
+        return new MessageResponse( "Task" + id+" deleted");
 
     }
 

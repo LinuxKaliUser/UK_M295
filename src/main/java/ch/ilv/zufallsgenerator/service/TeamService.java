@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.service;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import ch.ilv.zufallsgenerator.model.Person;
 import ch.ilv.zufallsgenerator.model.Team;
 import ch.ilv.zufallsgenerator.repo.PersonRepo;
@@ -59,15 +60,9 @@ public class TeamService {
                 .orElseGet(() -> teamRepo.save(team));
     }
 
-    public String deleteTeam(Long id) {
-        Team team = teamRepo.findById(id).get();
-        try {
-            teamRepo.deleteById(id);
-            return "Deleted" + team.getName();
-        } catch (Throwable throwable) {
-            return "Didn't delete " + team.getName();
-        }
-
+    public MessageResponse deleteTeam(Long id) {
+        teamRepo.deleteById(id);
+        return new MessageResponse( "Team" + id+" deleted");
     }
 
     public String deleteAllTeams(List<Team> teams) {
