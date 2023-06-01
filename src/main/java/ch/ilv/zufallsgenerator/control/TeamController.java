@@ -24,7 +24,7 @@ public class TeamController {
     @GetMapping("/team/id")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<Team> getTeam(@PathVariable Long id) {
-        return new ResponseEntity<>(this.teamService.getTeamById(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.teamService.getTeam(id), HttpStatus.OK);
     }
 
     @GetMapping("/team/random")

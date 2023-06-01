@@ -3,6 +3,7 @@ package ch.ilv.zufallsgenerator.service;
 import ch.ilv.zufallsgenerator.base.MessageResponse;
 import ch.ilv.zufallsgenerator.model.Meal;
 import ch.ilv.zufallsgenerator.repo.MealRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public class MealService {
     }
 
     public Meal getMeal(Long id) {
-        return mealRepo.findAll().get(id.intValue());
+        return mealRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException());
     }
 
     public List<Meal> getAllMealsRandom() {

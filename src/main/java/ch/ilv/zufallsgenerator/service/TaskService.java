@@ -3,6 +3,7 @@ package ch.ilv.zufallsgenerator.service;
 import ch.ilv.zufallsgenerator.base.MessageResponse;
 import ch.ilv.zufallsgenerator.model.Task;
 import ch.ilv.zufallsgenerator.repo.TaskRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class TaskService {
     }
 
     public Task getTask(Long id) {
-        return taskRepo.findAll().get(id.intValue());
+        return taskRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException());
     }
 
     public List<Task> getAllTasksRandom() {

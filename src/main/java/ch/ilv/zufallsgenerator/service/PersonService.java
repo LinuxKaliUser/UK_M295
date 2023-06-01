@@ -29,7 +29,7 @@ public class PersonService {
 
     public Person getPerson(Long id) {
         return  personRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(id, Person.class));
+                .orElseThrow(() -> new EntityNotFoundException());
     }
 
     public List<Person> getAllPersonsRandom() {

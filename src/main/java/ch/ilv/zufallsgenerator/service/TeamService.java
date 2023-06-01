@@ -5,6 +5,7 @@ import ch.ilv.zufallsgenerator.model.Person;
 import ch.ilv.zufallsgenerator.model.Team;
 import ch.ilv.zufallsgenerator.repo.PersonRepo;
 import ch.ilv.zufallsgenerator.repo.TeamRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,10 +30,10 @@ public class TeamService {
         return teamRepo.save(team);
     }
 
-    /*public Team getTeam(){
-        List<Team> teams = teamRepo.findAll();
-        return RandomGenerator.getRandomTeamList(teams,true).get(1);
-    }*/
+    public Team getTeam(Long id){
+        return  teamRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException());
+    }
     public List<Team> getAllTeamsRandom() {
         List<Team> teams = teamRepo.findAll();
         List<Person> persons = personRepo.findAll();
