@@ -26,9 +26,8 @@ public class MealService {
         return mealRepo.save(meal);
     }
 
-    public Meal getMeal() {
-        List<Meal> meals = mealRepo.findAll();
-        return randomGenerator.getRandomMeal(meals, mealRepo);
+    public Meal getMeal(Long id) {
+        return mealRepo.findAll().get(id.intValue());
     }
 
     public List<Meal> getAllMealsRandom() {

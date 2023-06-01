@@ -21,12 +21,11 @@ public class TeamController {
         this.teamService = teamService;
     }
 
-    /*@GetMapping("/team")
+    @GetMapping("/team/id")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<Team> getTeam(@PathVariable Long id) {
-        Team TeamById =  this.teamService.getTeamById(id);
-        return new ResponseEntity<>(TeamById, HttpStatus.OK);
-    }*/
+        return new ResponseEntity<>(this.teamService.getTeamById(id), HttpStatus.OK);
+    }
 
     @GetMapping("/team/random")
     @RolesAllowed(Roles.Read)
@@ -37,7 +36,7 @@ public class TeamController {
     @GetMapping("/team")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<List<Team>> getAllTeams() {
-        List<Team> allTeams = this.teamService.getAllTeamsRandom();
+        List<Team> allTeams = this.teamService.getAllTeams();
         return new ResponseEntity<>(allTeams, HttpStatus.OK);
     }
     @GetMapping("/testteam")

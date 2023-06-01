@@ -21,10 +21,10 @@ public class MealController {
         this.mealService = mealService;
     }
 
-    @GetMapping("/meal")
+    @GetMapping("/meal/{id}")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<Meal> getMeal(@PathVariable Long id) {
-        return new ResponseEntity<>(this.mealService.getMeal(), HttpStatus.OK);
+        return new ResponseEntity<>(this.mealService.getMeal(id), HttpStatus.OK);
     }
 
     @GetMapping("/meals/random")

@@ -21,10 +21,10 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping("/person")
+    @GetMapping("/person/{id}")
     @RolesAllowed(Roles.Read)
-    public ResponseEntity<Person> getPerson() {
-        return new ResponseEntity<>(personService.getPerson(), HttpStatus.OK);
+    public ResponseEntity<Person> getPerson( @PathVariable Long id) {
+        return new ResponseEntity<>(personService.getPerson(id), HttpStatus.OK);
     }
 
     @GetMapping("/persons/random")
