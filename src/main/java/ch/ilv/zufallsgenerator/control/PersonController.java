@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.control;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import ch.ilv.zufallsgenerator.model.Person;
 import ch.ilv.zufallsgenerator.service.PersonService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -62,8 +63,12 @@ public class PersonController {
 
     @DeleteMapping("/person/{id}")
     @RolesAllowed(Roles.Admin)
-    public String deletePerson(@PathVariable Long id) {
-        return personService.deletePerson(id);
+    public ResponseEntity<MessageResponse> deletePerson(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(personService.deletePerson(id));
+        } catch (Throwable t) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @DeleteMapping("/person")

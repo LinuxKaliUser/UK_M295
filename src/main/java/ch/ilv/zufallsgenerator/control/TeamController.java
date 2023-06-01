@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.control;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.HttpStatus;
@@ -63,8 +64,12 @@ public class TeamController {
 
     @DeleteMapping("/team/{id}")
     @RolesAllowed(Roles.Admin)
-    public String deleteTeam(@PathVariable Long id) {
-        return teamService.deleteTeam(id);
+    public ResponseEntity<MessageResponse> deleteTeam(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(teamService.deleteTeam(id));
+        } catch (Throwable t) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @DeleteMapping("/team")

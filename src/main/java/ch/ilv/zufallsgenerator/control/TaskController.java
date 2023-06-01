@@ -1,5 +1,6 @@
 package ch.ilv.zufallsgenerator.control;
 
+import ch.ilv.zufallsgenerator.base.MessageResponse;
 import ch.ilv.zufallsgenerator.model.Task;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.annotation.security.RolesAllowed;
@@ -62,8 +63,12 @@ public class TaskController {
 
     @DeleteMapping("/task/{id}")
     @RolesAllowed(Roles.Admin)
-    public String deleteTask(@PathVariable Long id) {
-        return taskService.deleteTask(id);
+    public ResponseEntity<MessageResponse> deleteTask(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(taskService.deleteTask(id));
+        } catch (Throwable t) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @DeleteMapping("/task")
