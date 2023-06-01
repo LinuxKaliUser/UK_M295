@@ -25,9 +25,8 @@ public class TaskService {
         return taskRepo.save(Task);
     }
 
-    public Task getTask() {
-        List<Task> tasks = taskRepo.findAll();
-        return randomGenerator.getRandomTask(tasks, taskRepo);
+    public Task getTask(Long id) {
+        return taskRepo.findAll().get(id.intValue());
     }
 
     public List<Task> getAllTasksRandom() {

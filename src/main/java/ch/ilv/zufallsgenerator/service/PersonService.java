@@ -1,6 +1,7 @@
 package ch.ilv.zufallsgenerator.service;
 
 import ch.ilv.zufallsgenerator.base.MessageResponse;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import ch.ilv.zufallsgenerator.model.Person;
 import ch.ilv.zufallsgenerator.repo.PersonRepo;
@@ -26,9 +27,9 @@ public class PersonService {
         return personRepo.save(Person);
     }
 
-    public Person getPerson() {
-        List<Person> persons = personRepo.findAll();
-        return randomGenerator.getRandomPerson(persons, personRepo);
+    public Person getPerson(Long id) {
+        return  personRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id, Person.class));
     }
 
     public List<Person> getAllPersonsRandom() {

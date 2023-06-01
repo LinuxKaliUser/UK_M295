@@ -21,10 +21,10 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/task")
+    @GetMapping("/task/{id}")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<Task> getTask(@PathVariable Long id) {
-        return new ResponseEntity<>(taskService.getTask(), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.getTask(id), HttpStatus.OK);
     }
 
     @GetMapping("/tasks/random")
