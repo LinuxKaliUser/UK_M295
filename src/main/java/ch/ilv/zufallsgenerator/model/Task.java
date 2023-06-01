@@ -17,11 +17,9 @@ public class Task {
     private Integer sequence;
     @Column(nullable = true)
     private Time taskDuration;
-    @ManyToOne()
-    @JoinColumn(name = "datesetting_id")
-    private DateSetting dateSetting;
-    @ManyToOne
-    @JoinColumn(name = "remarks_id")
-    private Remarks remarks;
+    @Column(nullable = true)
+    private String dateSetting;
+    @Column(nullable = true)
+    private String remarks;
 
 }

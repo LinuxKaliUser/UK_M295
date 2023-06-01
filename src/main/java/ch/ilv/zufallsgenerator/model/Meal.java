@@ -17,10 +17,8 @@ public class Meal {
     private Integer sequence;
     @Column(nullable = true)
     private BigDecimal cost;
-    @ManyToOne
-    @JoinColumn(name = "datasetting_id")
-    private DateSetting dateSetting;
-    @ManyToOne
-    @JoinColumn(name = "remarks_id")
-    private Remarks remarks;
+    @Column(nullable = true)
+    private String dateSetting;
+    @Column(nullable = true)
+    private String remarks;
 }

@@ -18,7 +18,6 @@ public class Team {
     @OneToMany
     @JoinColumn
     private List<Person> persons;
-    @ManyToOne
-    @JoinColumn(name = "remarks_id")
-    private Remarks remarks;
+    @Column(nullable = true)
+    private String remarks;
 }
