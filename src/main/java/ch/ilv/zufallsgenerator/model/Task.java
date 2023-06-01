@@ -16,7 +16,7 @@ public class Task {
     @Column(nullable = true)
     private Integer sequence;
     @Column(nullable = true)
-    private Time taskduration;
+    private Time taskDuration;
     @ManyToOne()
     @JoinColumn(name = "datesetting_id")
     private DateSetting dateSetting;
