@@ -33,13 +33,17 @@ public class TeamService {
         List<Team> teams = teamRepo.findAll();
         return RandomGenerator.getRandomTeamList(teams,true).get(1);
     }*/
-    public List<Team> getAllTeams() {
+    public List<Team> getAllTeamsRandom() {
         List<Team> teams = teamRepo.findAll();
         List<Person> persons = personRepo.findAll();
         if (persons.size() % teams.size() == 0) {
             return randomGenerator.getRandomTeamList(teams, teamRepo, persons);
         }
         return null;
+    }
+    public List<Team> getAllTeams() {
+        List<Team> teams = teamRepo.findAll();
+        return teams;
     }
 
     public String getTestTeamName() {

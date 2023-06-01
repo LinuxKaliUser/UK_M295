@@ -27,6 +27,12 @@ public class TaskController {
         return new ResponseEntity<>(taskService.getTask(), HttpStatus.OK);
     }
 
+    @GetMapping("/tasks/random")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<List<Task>> getAllTasksRandom() {
+        List<Task> allTasks = taskService.getAllTasksRandom();
+        return new ResponseEntity<>(allTasks, HttpStatus.OK);
+    }
     @GetMapping("/tasks")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<List<Task>> getAllTasks() {

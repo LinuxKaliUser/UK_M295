@@ -28,13 +28,18 @@ public class TeamController {
         return new ResponseEntity<>(TeamById, HttpStatus.OK);
     }*/
 
+    @GetMapping("/team/random")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<List<Team>> getAllTeamsRandom() {
+        List<Team> allTeams = this.teamService.getAllTeamsRandom();
+        return new ResponseEntity<>(allTeams, HttpStatus.OK);
+    }
     @GetMapping("/team")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<List<Team>> getAllTeams() {
-        List<Team> allTeams = this.teamService.getAllTeams();
+        List<Team> allTeams = this.teamService.getAllTeamsRandom();
         return new ResponseEntity<>(allTeams, HttpStatus.OK);
     }
-
     @GetMapping("/testteam")
     @RolesAllowed(Roles.Read)
     public String getTeamName() {

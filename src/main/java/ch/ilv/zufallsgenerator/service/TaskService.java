@@ -30,9 +30,13 @@ public class TaskService {
         return randomGenerator.getRandomTask(tasks, taskRepo);
     }
 
-    public List<Task> getAllTasks() {
+    public List<Task> getAllTasksRandom() {
         List<Task> tasks = taskRepo.findAll();
         return randomGenerator.getRandomTasksList(tasks, taskRepo);
+    }
+    public List<Task> getAllTasks() {
+        List<Task> tasks = taskRepo.findAll();
+        return tasks;
     }
 
     public String getTestTaskName() {

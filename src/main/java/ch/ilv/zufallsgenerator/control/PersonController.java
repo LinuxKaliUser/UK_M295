@@ -27,6 +27,13 @@ public class PersonController {
         return new ResponseEntity<>(personService.getPerson(), HttpStatus.OK);
     }
 
+    @GetMapping("/persons/random")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<List<Person>> getAllPersonsRandom() {
+        List<Person> allPersons = personService.getAllPersonsRandom();
+        return new ResponseEntity<>(allPersons, HttpStatus.OK);
+    }
+
     @GetMapping("/persons")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<List<Person>> getAllPersons() {

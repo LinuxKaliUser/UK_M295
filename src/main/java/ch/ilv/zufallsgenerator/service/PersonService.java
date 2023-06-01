@@ -31,9 +31,14 @@ public class PersonService {
         return randomGenerator.getRandomPerson(persons, personRepo);
     }
 
-    public List<Person> getAllPersons() {
+    public List<Person> getAllPersonsRandom() {
         List<Person> persons = personRepo.findAll();
         return randomGenerator.getRandomPersonList(persons, personRepo);
+    }
+
+    public List<Person> getAllPersons() {
+        List<Person> persons = personRepo.findAll();
+        return persons;
     }
 
     public String getTestPersonName() {

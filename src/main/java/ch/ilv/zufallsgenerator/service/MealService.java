@@ -31,10 +31,15 @@ public class MealService {
         return randomGenerator.getRandomMeal(meals, mealRepo);
     }
 
-    public List<Meal> getAllMeals() {
+    public List<Meal> getAllMealsRandom() {
         List<Meal> meals = mealRepo.findAll();
         return randomGenerator.getRandomMealList(meals, mealRepo);
     }
+    public List<Meal> getAllMeals() {
+        List<Meal> meals = mealRepo.findAll();
+        return meals;
+    }
+
 
     public String getTestMealDesignation() {
         Meal meal = new Meal();

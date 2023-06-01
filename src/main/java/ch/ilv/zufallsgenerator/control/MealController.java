@@ -27,6 +27,13 @@ public class MealController {
         return new ResponseEntity<>(this.mealService.getMeal(), HttpStatus.OK);
     }
 
+    @GetMapping("/meals/random")
+    @RolesAllowed(Roles.Read)
+    public ResponseEntity<List<Meal>> getAllMealsRandom() {
+        List<Meal> allMeals = this.mealService.getAllMealsRandom();
+        return new ResponseEntity<>(allMeals, HttpStatus.OK);
+    }
+
     @GetMapping("/meals")
     @RolesAllowed(Roles.Read)
     public ResponseEntity<List<Meal>> getAllMeals() {
